@@ -23,6 +23,10 @@ module.exports = {
           return context.distFiles;
         },
 
+        rootDir: function(context) {
+          return context.project.root;
+        },
+
         scm: function(/* context */) {
           return require('./lib/scm-data-generators')['git'];
         }
@@ -62,7 +66,7 @@ module.exports = {
       _getScmData: function() {
         var ScmDataGenerator = this.readConfig('scm');
         if (ScmDataGenerator) {
-          var path = this.readConfig('distDir');
+          var path = this.readConfig('rootDir');
           return new ScmDataGenerator(path).generate();
         } else {
           return RSVP.resolve();
